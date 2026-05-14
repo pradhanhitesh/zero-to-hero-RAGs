@@ -1,0 +1,8 @@
+*.venv
+*venv
+
+*.DS_Store
+assets
+notes.md
+
+__pycache__
