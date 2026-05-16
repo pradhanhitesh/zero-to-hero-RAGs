@@ -1,3 +1,5 @@
+import argparse
+
 from p1.src.utils.load import Loader
 from p1.src.utils.chunk import Chunk
 from p1.src.utils.embed import Embed
@@ -9,7 +11,7 @@ from p1.src.utils.generate import Generate
 def chat():
     print("RAG Chat Ready. Type 'exit' to quit.\n")
 
-    retriever = Retrieve("p1/backend/assets", "test-db")
+    retriever = Retrieve("p1/backend/assets", "rag-db")
 
     while True:
         try:
@@ -49,8 +51,15 @@ def chat():
             print(f"\n[ERROR] {e}\n")
 
 if __name__ == "__main__":
+    # Initialize parser
+    parser = argparse.ArgumentParser(description="Run the p1 RAG pipeline.")
+    parser.add_argument("--input_path", required=True, help="Path of the PDF file")
+
+    # Parse the args
+    args = parser.parse_args()
+
     # Load and get text
-    text = Loader(file_path='/Users/cbr/Library/CloudStorage/OneDrive-CentreforBrainResearch/CBR/Anemia and Cognition/glv158_CheckForStats.pdf').get_text()
+    text = Loader(file_path=args.input_path).get_text()
 
     # Chunks
     chunks = Chunk(text, chunking_method="Recursive Character").get_chunks(chunk_size=250, chunk_overlap=50)
