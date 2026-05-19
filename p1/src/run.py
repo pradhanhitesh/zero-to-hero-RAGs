@@ -32,9 +32,9 @@ def chat(chunks: list[str]):
             )
 
             # Add BM25 results as well
-            top_results = bm25(corpus=chunks, query=query)
+            top_results = bm25(corpus=chunks, query=query, n_results=30)
             context = top_results + context
-            
+
             # Augment
             augmented = Augment(
                 context=context,
