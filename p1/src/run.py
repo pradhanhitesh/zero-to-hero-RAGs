@@ -7,8 +7,9 @@ from p1.src.utils.store import Store
 from p1.src.utils.retrieve import Retrieve
 from p1.src.utils.augment import Augment
 from p1.src.utils.generate import Generate
+from p1.src.utils.query import bm25
 
-def chat():
+def chat(chunks: list[str]):
     print("RAG Chat Ready. Type 'exit' to quit.\n")
 
     retriever = Retrieve("p1/backend/assets", "rag-db")
@@ -30,6 +31,10 @@ def chat():
                 n_results=10
             )
 
+            # Add BM25 results as well
+            top_results = bm25(corpus=chunks, query=query)
+            context = top_results + context
+            
             # Augment
             augmented = Augment(
                 context=context,
@@ -73,4 +78,4 @@ if __name__ == "__main__":
     db = Store("rag-db", "p1/backend/assets").insert(ids=ids, embeddings=embs, text=chunks, metadatas=metadatas)
 
     # Chat
-    chat()
+    chat(chunks=chunks)
