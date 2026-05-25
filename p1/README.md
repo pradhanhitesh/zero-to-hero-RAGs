@@ -53,7 +53,7 @@ The project implements the following architectural steps:
 Run the full RAG pipeline (Load -> Chunk -> Embed -> Store -> Chat) via terminal:
 
 ```bash
-python -m p1.src.pipeline.main
+python -m p1.src.run
 ```
 
 ## Concepts Learned
