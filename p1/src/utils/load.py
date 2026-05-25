@@ -21,31 +21,8 @@ class Loader:
         except Exception as e:
             raise e
 
-    def _load_docx(self):
-        try:
-            doc = Document(self.file_path)
-            text = ""
-            for para in doc.paragraphs:
-                text += para.text
-            
-            return text.replace("\n", " ")
-        except Exception as e:
-            raise e
-
-    def _load_md(self):
-        try:
-            with open(self.file_path, 'r', encoding='utf-8') as file:
-                text = file.read()
-            return text
-        except Exception as e:
-            raise e
-
     def get_text(self):
         if self._get_file_extension() == ".pdf":
             return self._load_pdf()
-        elif self._get_file_extension() == ".docx":
-            return self._load_docx()
-        elif self._get_file_extension() == ".md":
-            return self._load_md()
 
         raise ValueError("Unsupported file type")
