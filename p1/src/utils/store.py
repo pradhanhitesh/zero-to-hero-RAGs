@@ -2,7 +2,7 @@ import chromadb
 from chromadb.config import Settings
 
 class Store:
-    def __init__(self, db_name: str, db_path: str):
+    def __init__(self, db_path: str, db_name: str,):
         # Always reset the existing db
         client = chromadb.PersistentClient(path=db_path, settings=Settings(allow_reset=True))
         client.reset()
